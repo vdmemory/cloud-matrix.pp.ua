@@ -1,12 +1,9 @@
 import { ArrowRight, Code, Cpu, Layers, MessageSquare } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
   const { t } = useLanguage();
-  const isMobile = useIsMobile();
   const containerVariants = {
     hidden: {
       opacity: 0

@@ -53,6 +53,10 @@
   body {
     @apply bg-white text-foreground font-space;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Custom color classes */

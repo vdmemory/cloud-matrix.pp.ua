@@ -125,7 +125,7 @@ const Projects = () => {
     return "scale-90 opacity-0";
   };
   
-  return <section id="projects" ref={projectsRef} className="bg-white py-[50px] w-full">
+  return <section id="projects" ref={projectsRef} className="bg-white py-[20px] w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className={`text-center mb-10 max-w-3xl mx-auto transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-block mb-2 px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">
@@ -164,7 +164,7 @@ const Projects = () => {
                 className={`absolute top-0 w-full max-w-md transform transition-all duration-500 ${getCardAnimationClass(index)}`} 
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
-                <Card className="overflow-hidden h-[500px] border border-gray-100 shadow-sm hover:shadow-md flex flex-col">
+                <Card className="overflow-hidden h-[450px] border border-gray-100 shadow-sm hover:shadow-md flex flex-col">
                   <div 
                     className="relative bg-black p-6 flex items-center justify-center h-48 overflow-hidden"
                     style={{
@@ -204,19 +204,6 @@ const Projects = () => {
                         ))}
                       </div>
                       
-                      <Link 
-                        to={project.link} 
-                        className="text-brand-red flex items-center hover:underline relative overflow-hidden group"
-                        onClick={() => {
-                          if (project.link.startsWith('/')) {
-                            window.scrollTo(0, 0);
-                          }
-                        }}
-                      >
-                        <span className="relative z-10">{t.common.learnMore}</span>
-                        <ArrowRight className="ml-2 w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" />
-                        <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-brand-red transition-all duration-300 group-hover:w-full"></span>
-                      </Link>
                     </div>
                   </CardContent>
                 </Card>

@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import logo from '@/assets/logo.png';
+import {configCompany} from "@/data/configCompany.ts";
+import SocialLinks from "@/components/SocialLinks.tsx";
 
 const Navbar = () => {
   const { t } = useLanguage();
@@ -49,96 +52,32 @@ const Navbar = () => {
     }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center">
-              <div className={cn("text-2xl font-bold", isScrolled ? "text-black" : "text-white")}>
-                DevCorp
-              </div>
-            </Link>
-          </div>
+          <motion.div
+              className="flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+          >
+            <img src={logo} alt="logo company" className={`h-14`} />
+            <span className={cn(isScrolled ? "text-xl font-bold" : "text-white text-xl font-bold")} >
+              {configCompany.name}
+            </span>
+          </motion.div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
+
             <NavigationMenu className={cn(isScrolled ? "" : "text-white")}>
+              <nav className="hidden md:flex items-center space-x-2">
+                <a href="#" className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>{t.nav.home}</a>
+                <a href="#services" className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>{t.nav.services}</a>
+                <a href="#projects" className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>{t.nav.projects}</a>
+                <a href="#development" className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>{t.nav.development}</a>
+              </nav>
+
+              <SocialLinks isHeader isLight />
+
               <NavigationMenuList>
-                <NavigationMenuItem>
-                  <Link to="/">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                      {t.nav.home}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <Link to="/about">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                      {t.nav.about}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className={cn(isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                    {t.nav.services}
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-3 p-4 w-[350px]">
-                      <li>
-                        <div className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">{t.services.webDevelopment.title}</div>
-                          <p className="text-sm text-gray-500">{t.services.webDevelopment.description}</p>
-                        </div>
-                        {/*</Link>*/}
-                      </li>
-                      <li>
-                        <div className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">{t.services.mobileDevelopment.title}</div>
-                          <p className="text-sm text-gray-500">{t.services.mobileDevelopment.description}</p>
-                        </div>
-                        {/*</Link>*/}
-                      </li>
-                      <li>
-                        <div className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">{t.services.cloudSolutions.title}</div>
-                          <p className="text-sm text-gray-500">{t.services.cloudSolutions.description}</p>
-                        </div>
-                        {/*</Link>*/}
-                      </li>
-                      <li>
-                        <div className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">{t.services.aiMl.title}</div>
-                          <p className="text-sm text-gray-500">{t.services.aiMl.description}</p>
-                        </div>
-                        {/*</Link>*/}
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <Link to="/projects">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                      {t.nav.projects}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <Link to="/blog">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                      {t.nav.blog}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <Link to="/careers">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-brand-red" : "text-gray-100 hover:text-white bg-transparent hover:bg-brand-dark-red")}>
-                      {t.nav.careers}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                
+
                 <NavigationMenuItem>
                   <LanguageSwitcher />
                 </NavigationMenuItem>
@@ -171,13 +110,6 @@ const Navbar = () => {
             {t.nav.home}
           </Link>
           
-          <Link to="/about" className={cn("block px-3 py-1.5 rounded-md text-sm", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-gray-900")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
-            {t.nav.about}
-          </Link>
-          
           <div className={cn("block px-3 py-1.5 rounded-md text-sm", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-gray-900")}>
             {t.nav.services}
           </div>
@@ -187,20 +119,6 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}>
             {t.nav.projects}
-          </Link>
-          
-          <Link to="/blog" className={cn("block px-3 py-1.5 rounded-md text-sm", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-gray-900")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
-            {t.nav.blog}
-          </Link>
-          
-          <Link to="/careers" className={cn("block px-3 py-1.5 rounded-md text-sm", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-gray-900")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
-            {t.nav.careers}
           </Link>
           
           <div className="px-3 py-1.5">

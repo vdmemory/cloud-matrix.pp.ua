@@ -1,9 +1,12 @@
 import { ArrowLeft, CheckCircle, Clock, FileSearch, Settings, Cpu, Code, Truck, BarChart, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import PageLayout from '@/components/PageLayout';
+import { cn } from '@/lib/utils.ts';
+import PageLayout from '@/components/PageLayout.tsx';
+import {useLanguage} from "@/contexts/LanguageContext.tsx";
 const DevelopmentProcess = () => {
+  const { t, language } = useLanguage();
+
   const [activeProcess, setActiveProcess] = useState(1);
   const processRef = useRef<HTMLDivElement>(null);
   const processSectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -14,7 +17,7 @@ const DevelopmentProcess = () => {
   }, []);
 
   // Process component logic
-  const processes = [{
+  const processesEng = [{
     id: 1,
     title: "Textile Sensor Design",
     description: "We begin by designing custom textile sensors specifically for your industry and use case, selecting appropriate conductive materials and sensor types.",
@@ -40,6 +43,61 @@ const DevelopmentProcess = () => {
     description: "We provide comprehensive training, implementation assistance, and ongoing support to ensure successful adoption and continuous improvement.",
     steps: ["User training and onboarding", "Data interpretation guidance", "Performance monitoring", "Continuous improvement iterations"]
   }];
+
+  const processesUa = [{
+    id: 1,
+    title: "Проєктування текстильних сенсорів",
+    description: "Ми починаємо з розробки індивідуальних текстильних сенсорів спеціально для вашої галузі та сценарію використання, обираючи відповідні провідні матеріали та типи сенсорів.",
+    steps: [
+      "Аналіз вимог для конкретної галузі",
+      "Вибір типу сенсора та матеріалу",
+      "Розробка прототипу сенсора",
+      "Початкове тестування та калібрування"
+    ]
+  }, {
+    id: 2,
+    title: "Інтеграція в одяг",
+    description: "Наша інженерна команда безперешкодно інтегрує сенсори в одяг і взуття, зберігаючи комфорт, довговічність та можливість прання.",
+    steps: [
+      "Оптимізація ергономічного розміщення",
+      "Неінвазивні методи інтеграції",
+      "Тестування на довговічність і стійкість до прання",
+      "Перевірка комфорту та користувацького досвіду"
+    ]
+  }, {
+    id: 3,
+    title: "ШІ та аналітика даних",
+    description: "Ми розробляємо спеціалізовані алгоритми, які перетворюють дані з текстильних сенсорів на практичну аналітику відповідно до вимог вашої галузі.",
+    steps: [
+      "Розробка алгоритмів під специфіку галузі",
+      "Навчання моделей машинного навчання на доменних даних",
+      "Реалізація аналітики в реальному часі",
+      "Оптимізація подачі аналітичних висновків"
+    ]
+  }, {
+    id: 4,
+    title: "Виробництво та сертифікація",
+    description: "Ми забезпечуємо виробництво, контроль якості та відповідність усіх текстильних сенсорів галузевим стандартам і сертифікатам.",
+    steps: [
+      "Вибір виробничого партнера з текстилю",
+      "Процеси забезпечення якості",
+      "Отримання сертифікації для відповідної галузі",
+      "Контроль за початковим виробництвом"
+    ]
+  }, {
+    id: 5,
+    title: "Впровадження та підтримка",
+    description: "Ми надаємо повноцінне навчання, допомогу при впровадженні та постійну підтримку для успішного використання й подальшого вдосконалення.",
+    steps: [
+      "Навчання користувачів і введення в експлуатацію",
+      "Пояснення принципів інтерпретації даних",
+      "Моніторинг ефективності",
+      "Постійні ітерації вдосконалення"
+    ]
+  }];
+
+  const processes = language === "en" ? processesEng : processesUa;
+
   useEffect(() => {
     processSectionsRef.current = processes.map((_, i) => processSectionsRef.current[i] || null);
   }, []);
@@ -84,50 +142,15 @@ const DevelopmentProcess = () => {
     setTimeout(handleScroll, 100);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const developmentSteps = [{
-    icon: <FileSearch className="h-6 w-6" />,
-    title: "1. Discovery & Requirements",
-    description: "We begin by understanding your needs, market opportunities, and technical requirements to establish clear project parameters and goals."
-  }, {
-    icon: <Settings className="h-6 w-6" />,
-    title: "2. Concept & Design",
-    description: "Our experts craft initial designs and technical specifications, ensuring alignment with your brand identity and user experience goals."
-  }, {
-    icon: <Cpu className="h-6 w-6" />,
-    title: "3. Hardware Development",
-    description: "We select, design, and integrate sensor components, creating optimized hardware solutions that balance performance and efficiency."
-  }, {
-    icon: <Code className="h-6 w-6" />,
-    title: "4. Software Development",
-    description: "Our development team builds robust firmware, apps, and cloud platforms tailored to your product's unique requirements and user needs."
-  }, {
-    icon: <CheckCircle className="h-6 w-6" />,
-    title: "5. Testing & Iteration",
-    description: "Rigorous testing protocols ensure reliability, durability, and optimal performance across all conditions and use cases."
-  }, {
-    icon: <Truck className="h-6 w-6" />,
-    title: "6. Production & Deployment",
-    description: "We support the transition from prototype to manufacturing, ensuring quality standards and seamless deployment."
-  }, {
-    icon: <BarChart className="h-6 w-6" />,
-    title: "7. Continuous Improvement",
-    description: "Post-launch analytics and feedback loops drive ongoing improvements, updates, and potential new features."
-  }];
-  return <PageLayout>
-      <section className="pt-24 pb-16">
+
+  return <section id={"development"} className="pt-8 pb-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="flex items-center text-gray-500 hover:text-gray-700 mb-8">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
-            </Link>
-            
-            <h1 className="text-4xl font-bold mb-8">Our Structured Development Process</h1>
+            <h1 className="text-4xl font-bold mb-8">{t.development.title}</h1>
             
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-gray-600 mb-12">
-                We've refined our development methodology to minimize risk and maximize innovation, 
-                ensuring your textile sensor project moves efficiently from concept to reality.
+                {t.development.description}
               </p>
               
               {/* From Textile to Intelligence Process Section */}
@@ -167,44 +190,34 @@ const DevelopmentProcess = () => {
               </div>
               
               <div className="bg-gray-50 p-8 rounded-lg my-12 border border-gray-100">
-                <h3 className="text-xl font-semibold mb-4">Our Development Principles</h3>
+                <h3 className="text-xl font-semibold mb-4">{t.development.principles.title}</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
-                    <span>Rapid iteration cycles for continuous improvement</span>
+                    <span>{t.development.principles.one}</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
-                    <span>Transparent communication throughout the development process</span>
+                    <span>{t.development.principles.two}</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
-                    <span>Modular architecture allowing for flexible and scalable solutions</span>
+                    <span>{t.development.principles.tree}</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
-                    <span>Risk mitigation strategies built into every phase</span>
+                    <span>{t.development.principles.four}</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
-                    <span>Focus on user experience and practical functionality</span>
+                    <span>{t.development.principles.five}</span>
                   </li>
                 </ul>
               </div>
-              
-              
-            </div>
-            
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <Link to="/tech-details" className="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all group">
-                Explore Our Technology
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
           </div>
         </div>
       </section>
-    </PageLayout>;
 };
 export default DevelopmentProcess;
 

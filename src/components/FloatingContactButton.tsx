@@ -1,5 +1,5 @@
 
-import { MessageSquare } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -20,27 +20,25 @@ const FloatingContactButton = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
-  const scrollToContact = (e: React.MouseEvent) => {
+
+  const scrollToUp = (e: React.MouseEvent) => {
     e.preventDefault();
-    const contactSection = document.getElementById('contact-info');
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  };
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
   
   if (!isVisible) return null;
   
   return (
     <Button
-      onClick={scrollToContact}
+      onClick={scrollToUp}
       className="fixed bottom-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all"
       size="icon"
       aria-label="Contact Us"
     >
-      <MessageSquare className="h-6 w-6" />
+      <ArrowUp className="h-6 w-6" />
     </Button>
   );
 };

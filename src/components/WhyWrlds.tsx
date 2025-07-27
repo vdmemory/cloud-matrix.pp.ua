@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Layers, BarChart, AlertTriangle, Clock4, Rocket, Zap, Sparkles, ArrowRight, Award, Target, Shield, ChartBar } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { Link } from "react-router-dom";
+import {  BarChart, AlertTriangle, Clock4, Rocket, Zap, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const AnimatedCounter = ({
@@ -54,7 +52,6 @@ const AnimatedCounter = ({
 
 const WhyWrlds = () => {
   const { t } = useLanguage();
-  const isMobile = useIsMobile();
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -81,7 +78,7 @@ const WhyWrlds = () => {
       }
     }
   };
-  return <section id="why-wrlds" className="relative py-16 md:py-24 bg-white overflow-hidden">
+  return <section id="why-wrlds" className="relative py-16 md:py-4 bg-white overflow-hidden">
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="text-center mb-12 md:mb-16" initial="hidden" whileInView="visible" viewport={{
         once: true,
@@ -95,56 +92,50 @@ const WhyWrlds = () => {
           </motion.p>
         </motion.div>
         
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" initial="hidden" whileInView="visible" viewport={{
-        once: true,
-        margin: "-100px"
-      }} variants={containerVariants}>
-          <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
-            <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
-              <BarChart className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
-              <AnimatedCounter end={500} suffix="+" />
-            </h3>
-            <p className="text-gray-700">Successful projects delivered worldwide</p>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
-            <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
-              <AnimatedCounter end={98} suffix="%" /> 
-            </h3>
-            <p className="text-gray-700">
-              Client satisfaction rate with our development services
-            </p>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
-            <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
-              <Clock4 className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
-              <AnimatedCounter end={24} suffix="/7" />
-            </h3>
-            <p className="text-gray-700">
-              Support and maintenance for all our clients
-            </p>
-          </motion.div>
-        </motion.div>
+
         
         <motion.div className="mb-12" initial="hidden" whileInView="visible" viewport={{
           once: true,
           margin: "-100px"
         }} variants={containerVariants}>
-          <motion.div variants={itemVariants} className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              {t.whyUs.title}
-            </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t.whyUs.subtitle}
-            </p>
+
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" initial="hidden" whileInView="visible" viewport={{
+            once: true,
+            margin: "-100px"
+          }} variants={containerVariants}>
+            <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
+              <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
+                <BarChart className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
+                <AnimatedCounter end={500} suffix="+" />
+              </h3>
+              <p className="text-gray-700"> {t.whyUs.first}</p>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
+              <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
+                <AlertTriangle className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
+                <AnimatedCounter end={98} suffix="%" />
+              </h3>
+              <p className="text-gray-700">
+                {t.whyUs.second}
+              </p>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-xl border border-brand-red text-center hover:bg-gray-200 transition-all">
+              <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mx-auto mb-4">
+                <Clock4 className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-gray-900 text-2xl lg:text-3xl font-bold mb-3">
+                <AnimatedCounter end={24} suffix="/7" />
+              </h3>
+              <p className="text-gray-700">
+                {t.whyUs.next}
+              </p>
+            </motion.div>
           </motion.div>
           
           <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -197,16 +188,6 @@ const WhyWrlds = () => {
             </motion.div>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="text-center mt-10">
-            <Link 
-              to="/about" 
-              onClick={() => window.scrollTo(0, 0)}
-              className="inline-flex items-center px-6 py-3 bg-brand-red text-white rounded-lg hover:bg-brand-bright-red transition-all group"
-            >
-              {t.common.learnMore}
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </motion.div>
         </motion.div>
       </div>
     </section>;

@@ -2,11 +2,9 @@ export interface Translation {
   // Navigation
   nav: {
     home: string;
-    about: string;
     services: string;
     projects: string;
-    blog: string;
-    careers: string;
+    development: string;
     contact: string;
   };
   
@@ -60,6 +58,9 @@ export interface Translation {
       title: string;
       description: string;
     };
+    first: string;
+    second: string,
+    next: string;
   };
   
   // Projects
@@ -77,6 +78,12 @@ export interface Translation {
     message: string;
     send: string;
     sending: string;
+    phone: string;
+    first_name: string;
+    last_name: string;
+    message1: string;
+    email_us: string;
+    general_inquiries: string;
   };
   
   // Footer
@@ -95,17 +102,29 @@ export interface Translation {
     backToHome: string;
     loading: string;
   };
+
+  // Develop
+  development: {
+    title: string;
+    description: string;
+    principles: {
+      title: string;
+      one: string;
+      two: string;
+      tree: string;
+      four: string;
+      five: string;
+    }
+  }
 }
 
 export const translations: Record<'en' | 'ua', Translation> = {
   en: {
     nav: {
       home: 'Home',
-      about: 'About Us',
       services: 'Services',
       projects: 'Projects',
-      blog: 'Blog',
-      careers: 'Careers',
+     development: 'Development',
       contact: 'Contact',
     },
     hero: {
@@ -153,6 +172,9 @@ export const translations: Record<'en' | 'ua', Translation> = {
         title: 'On-Time Delivery',
         description: 'We follow agile methodologies to deliver projects on time and within budget.',
       },
+      first: 'Successful projects delivered worldwide',
+      second: 'Client satisfaction rate with our development services',
+      next: 'Support and maintenance for all our clients'
     },
     projects: {
       title: 'Our Projects',
@@ -166,6 +188,12 @@ export const translations: Record<'en' | 'ua', Translation> = {
       message: 'Message',
       send: 'Send Message',
       sending: 'Sending...',
+      phone: 'Phone',
+      first_name: 'First Name',
+      last_name: 'Last Name',
+      message1: 'Tell us about your project...',
+      email_us: 'Email Us',
+      general_inquiries: 'For general inquiries:',
     },
     footer: {
       company: 'Company',
@@ -180,15 +208,26 @@ export const translations: Record<'en' | 'ua', Translation> = {
       backToHome: 'Back to Home',
       loading: 'Loading...',
     },
+    development: {
+      title: 'Our Structured Development Process',
+      description: ' We\'ve refined our development methodology to minimize risk and maximize innovation, \n' +
+          '                ensuring your textile sensor project moves efficiently from concept to reality.',
+      principles: {
+        title: 'Our Development Principles',
+        one: 'Rapid iteration cycles for continuous improvement',
+        two: 'Transparent communication throughout the development process',
+        tree: 'Modular architecture allowing for flexible and scalable solutions',
+        four: 'Risk mitigation strategies built into every phase',
+        five: 'Focus on user experience and practical functionality'
+      }
+    }
   },
   ua: {
     nav: {
       home: 'Головна',
-      about: 'Про нас',
       services: 'Послуги',
       projects: 'Проекти',
-      blog: 'Блог',
-      careers: 'Кар\'єра',
+      development: 'Розробка',
       contact: 'Контакти',
     },
     hero: {
@@ -236,6 +275,9 @@ export const translations: Record<'en' | 'ua', Translation> = {
         title: 'Своєчасна доставка',
         description: 'Ми дотримуємося agile-методологій для доставки проектів вчасно та в рамках бюджету.',
       },
+      first: 'Успішні проєкти, реалізовані по всьому світу',
+      second: 'Рівень задоволеності клієнтів нашими послугами розробки',
+      next: 'Підтримка та обслуговування для всіх наших клієнтів',
     },
     projects: {
       title: 'Наші проекти',
@@ -249,6 +291,12 @@ export const translations: Record<'en' | 'ua', Translation> = {
       message: 'Повідомлення',
       send: 'Надіслати повідомлення',
       sending: 'Надсилання...',
+      phone: 'Телефон',
+      first_name: 'Ім\'я',
+      last_name: 'Прізвище',
+      message1: 'Розкажіть нам про ваш проект...',
+      email_us: 'Напишіть нам',
+      general_inquiries: 'Загальні запитання:'
     },
     footer: {
       company: 'Компанія',
@@ -263,5 +311,18 @@ export const translations: Record<'en' | 'ua', Translation> = {
       backToHome: 'Повернутися на головну',
       loading: 'Завантаження...',
     },
+    development: {
+      title: 'Наша структурована модель розробки',
+      description: 'Ми вдосконалили нашу методологію розробки, щоб мінімізувати ризики та максимально розкрити інноваційний потенціал,\n' +
+          'забезпечуючи ефективний шлях вашого проєкту текстильного сенсора — від ідеї до реалізації.',
+      principles: {
+        title: 'Наші принципи розробки',
+        one: 'Швидкі ітераційні цикли для постійного вдосконалення',
+        two: 'Прозора комунікація протягом усього процесу розробки',
+        tree: 'Модульна архітектура для гнучких і масштабованих рішень',
+        four: 'Стратегії мінімізації ризиків на кожному етапі',
+        five: 'Фокус на зручності користування та практичній функціональності'
+      }
+    }
   },
 };

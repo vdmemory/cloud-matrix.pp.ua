@@ -14,7 +14,7 @@ import { useScrollHijack } from '@/hooks/useScrollHijack';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Features = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const featuresRef = useRef<HTMLDivElement>(null);
   const hijackSectionRef = useRef<HTMLDivElement>(null);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
@@ -54,7 +54,17 @@ const Features = () => {
 
   const scrollToContact = (e: React.MouseEvent) => {
     e.preventDefault();
-    const contactSection = document.getElementById('contact-info');
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollToProjects = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('projects');
     if (contactSection) {
       contactSection.scrollIntoView({
         behavior: 'smooth'
@@ -110,20 +120,7 @@ const Features = () => {
     };
   }, []);
 
-  const sensorCaseStudies = [{
-    image: "/lovable-uploads/843446fe-638e-4efb-b885-ed3cd505325a.png",
-    title: "Firefighter Safety",
-    description: "Advanced protective gear with gas, temperature, positioning, and motion sensors for safer emergency response."
-  }, {
-    image: "/lovable-uploads/5463c9c5-0946-4280-a14b-17636ff69a98.png",
-    title: "Industrial Worker Protection",
-    description: "Safety workwear with vibration, pressure, and heating sensors to prevent injuries and monitor environmental hazards."
-  }, {
-    image: "/lovable-uploads/c5f8ee24-9815-4ebe-b65d-6f3d449feb8b.png",
-    title: "Sports Performance",
-    description: "Smart athletic wear with temperature and pressure sensors that track hydration, foot strike patterns, and performance metrics."
-  }];
-  const stepFlowItems = [{
+  const stepFlowItemsEng = [{
     icon: <Microchip className="h-10 w-10 text-gray-700" />,
     title: "WRLDS Proprietary Modules",
     description: "Our core technology components developed in-house"
@@ -136,7 +133,8 @@ const Features = () => {
     title: "Vetted Production Partners",
     description: "Expert manufacturing partners for quality and reliability"
   }];
-  const sprintPhases = [{
+
+  const sprintPhasesEng = [{
     name: "Planning",
     icon: <CheckCircle className="h-4 w-4" />
   }, {
@@ -149,6 +147,73 @@ const Features = () => {
     name: "Review",
     icon: <RefreshCcw className="h-4 w-4" />
   }];
+
+  const stepFlowItemsUa = [{
+    icon: <Microchip className="h-10 w-10 text-gray-700" />,
+    title: "Власні модулі WRLDS",
+    description: "Наші основні технологічні компоненти, розроблені внутрішньо"
+  }, {
+    icon: <Factory className="h-10 w-10 text-gray-700" />,
+    title: "Перевірене готове апаратне забезпечення",
+    description: "Уважно підібрані компоненти, що доповнюють нашу технологію"
+  }, {
+    icon: <Handshake className="h-10 w-10 text-gray-700" />,
+    title: "Надійні виробничі партнери",
+    description: "Експертні партнери з виробництва для якості та надійності"
+  }];
+
+  const sprintPhasesUa = [{
+    name: "Планування",
+    icon: <CheckCircle className="h-4 w-4" />
+  }, {
+    name: "Розробка",
+    icon: <Code className="h-4 w-4" />
+  }, {
+    name: "Тестування",
+    icon: <Box className="h-4 w-4" />
+  }, {
+    name: "Огляд",
+    icon: <RefreshCcw className="h-4 w-4" />
+  }];
+
+const stepFlowItems = language === 'en' ? stepFlowItemsEng : stepFlowItemsUa;
+const sprintPhases = language === 'en' ? sprintPhasesEng : sprintPhasesUa;
+
+const hoverCardContentEng = [
+    'Our proprietary technology provides the core foundation of every solution we build.',
+    'We carefully select the best off-the-shelf components to complement our proprietary technology.',
+    'Our network of production partners ensures quality manufacturing at scale.'
+];
+const HoverCardContentUa = [
+  'Наша запатентована технологія є основою кожного створеного нами рішення.',
+    'Ми ретельно підбираємо найкращі готові компоненти, щоб доповнити власні технології.',
+    'Наша мережа виробничих партнерів гарантує якісне масштабне виробництво.'
+]
+
+  const hoverCardContent = language === 'en' ? hoverCardContentEng : HoverCardContentUa;
+
+const AdaptationProjectEng = {
+  title: 'Adaptation Project',
+  sub: 'Iterative Development',
+  description: 'Working iteratively with customers to tailor solutions to their needs',
+  footOne: 'Customer feedback integrated at every stage',
+  footTwo: 'Continuous improvement',
+  cardTile: 'Hitting the Market',
+  cardSub: 'Ready to scale, produce, and launch'
+}
+
+  const AdaptationProjectUa = {
+    title: 'Проєкт Адаптації',
+    sub: 'Ітеративна розробка',
+    description: 'Працюємо ітеративно з клієнтами, адаптуючи рішення до їхніх потреб',
+    footOne: 'Зворотний зв’язок клієнта інтегрується на кожному етапі',
+    footTwo: 'Постійне вдосконалення',
+    cardTile: 'Вихід на ринок',
+    cardSub: 'Готовність до масштабування, виробництва та запуску'
+  }
+
+  const adaptationProject = language === 'en' ? AdaptationProjectEng : AdaptationProjectUa;
+
 
   return <>
       <section id="services" className="relative bg-white overflow-hidden py-10 md:py-[50px] w-full">
@@ -270,80 +335,10 @@ const Features = () => {
                     />
                   ))}
                 </div>
-                <p className="text-sm opacity-70">
-                  {isMobile ? "Swipe" : "Scroll"} to continue • Press ESC to exit
-                </p>
               </div>
             )}
           </div>
 
-          <div className="mt-16 mb-8 feature-item">
-            <div className="text-center mb-8">
-              <div className="inline-block mb-2 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-                Textile Sensor Applications
-              </div>
-              <h3 className="text-2xl font-bold">Real-World Use Cases</h3>
-              <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-                Explore how our textile sensors are applied in different professional contexts, 
-                from emergency response to construction and athletics.
-                <span className="block text-sm mt-1 text-blue-500">Scroll horizontally to see more examples →</span>
-              </p>
-            </div>
-            
-            <div className="rounded-xl overflow-hidden bg-white p-4 feature-item">
-              <Carousel className="w-full max-w-7xl mx-auto">
-                <CarouselContent className="flex">
-                  {[
-                    {
-                      image: "https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                      title: t.services.webDevelopment.title,
-                      description: t.services.webDevelopment.description
-                    },
-                    {
-                      image: "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                      title: t.services.mobileDevelopment.title,
-                      description: t.services.mobileDevelopment.description
-                    },
-                    {
-                      image: "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                      title: t.services.cloudSolutions.title,
-                      description: t.services.cloudSolutions.description
-                    }
-                  ].map((study, index) => <CarouselItem key={index} className="md:basis-1/3 flex-shrink-0">
-                      <Card className="border border-gray-100 shadow-md">
-                        <CardContent className="p-0">
-                          <div className="w-full h-full">
-                            <img src={study.image} alt={study.title} className="w-full h-auto object-contain" />
-                          </div>
-                          <div className="p-4">
-                            <h4 className="font-semibold text-lg">{study.title}</h4>
-                            <p className="text-sm text-gray-600 mt-2">{study.description}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </CarouselItem>)}
-                </CarouselContent>
-                <div className="flex justify-center mt-6 gap-2">
-                  <CarouselPrevious className="relative static left-auto translate-y-0 hover:bg-gray-100" />
-                  <CarouselNext className="relative static right-auto translate-y-0 hover:bg-gray-100" />
-                </div>
-              </Carousel>
-              <div className="text-center mt-6 text-sm text-gray-600">
-                <p className="font-medium">{t.common.learnMore}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-          <Button onClick={scrollToContact} className="inline-flex items-center px-4 sm:px-6 py-3 bg-brand-red hover:bg-brand-bright-red text-white rounded-lg shadow-md hover:shadow-lg transition-all group w-full sm:w-auto">
-            {t.hero.contactUs}
-            <MessageSquare className="ml-2 w-4 h-4 group-hover:animate-pulse" />
-          </Button>
-          
-          <Button onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center px-4 sm:px-6 py-3 bg-white text-brand-black rounded-lg border border-brand-red hover:bg-gray-50 hover:shadow-md transition-all group w-full sm:w-auto">
-            {t.common.learnMore}
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
         </div>
       </section>
       
@@ -377,9 +372,9 @@ const Features = () => {
                     <div className="space-y-2">
                       <h4 className="text-sm font-semibold">{item.title}</h4>
                       <p className="text-sm">{item.description}</p>
-                      {index === 0 && <p className="text-xs text-gray-500">Our proprietary technology provides the core foundation of every solution we build.</p>}
-                      {index === 1 && <p className="text-xs text-gray-500">We carefully select the best off-the-shelf components to complement our proprietary technology.</p>}
-                      {index === 2 && <p className="text-xs text-gray-500">Our network of production partners ensures quality manufacturing at scale.</p>}
+                      {index === 0 && <p className="text-xs text-gray-500">{hoverCardContent[0]}</p>}
+                      {index === 1 && <p className="text-xs text-gray-500">{hoverCardContent[1]}</p>}
+                      {index === 2 && <p className="text-xs text-gray-500">{hoverCardContent[2]}</p>}
                     </div>
                   </HoverCardContent>
                 </HoverCard>)}
@@ -406,15 +401,15 @@ const Features = () => {
               <div className="max-w-3xl mx-auto">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                   <div className="flex items-center">
-                    <h3 className="text-xl font-bold">Adaptation Project</h3>
+                    <h3 className="text-xl font-bold">{adaptationProject.title}</h3>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-sm text-gray-500 mr-2">Iterative Development</span>
+                    <span className="text-sm text-gray-500 mr-2">{adaptationProject.sub}</span>
                     <RefreshCcw className="h-5 w-5 text-gray-600 animate-rotate-slow" />
                   </div>
                 </div>
                 
-                <p className="text-gray-600 mb-4">Working iteratively with customers to tailor solutions to their needs</p>
+                <p className="text-gray-600 mb-4">{adaptationProject.description}</p>
                 
                 <div className="relative mb-2">
                   <Progress value={progressValue} className="h-3 bg-gray-200" />
@@ -436,10 +431,10 @@ const Features = () => {
                     <div className="bg-green-100 rounded-full p-1 mr-2 shrink-0">
                       <CheckCircle className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-sm text-gray-600">Customer feedback integrated at every stage</span>
+                    <span className="text-sm text-gray-600">{adaptationProject.footOne}</span>
                   </div>
                   <div className="text-sm text-gray-500 flex items-center mt-2 sm:mt-0">
-                    <span className="mr-2">Continuous improvement</span>
+                    <span className="mr-2">{adaptationProject.footTwo}</span>
                     <div className="flex space-x-1">
                       <span className="inline-block w-2 h-2 bg-gray-300 rounded-full animate-pulse"></span>
                       <span className="inline-block w-2 h-2 bg-gray-400 rounded-full animate-pulse animation-delay-200"></span>
@@ -474,8 +469,8 @@ const Features = () => {
                   <Rocket className="h-10 w-10 text-gray-700" />
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2">Hitting the Market</h3>
-              <p className="text-gray-700">Ready to scale, produce, and launch</p>
+              <h3 className="text-xl font-bold mb-2">{adaptationProject.cardTile}</h3>
+              <p className="text-gray-700">{adaptationProject.cardSub}</p>
               <div className="flex justify-center mt-4 space-x-2">
                 <span className="inline-block w-3 h-3 rounded-full bg-gray-300 animate-pulse"></span>
                 <span className="inline-block w-3 h-3 rounded-full bg-gray-500 animate-pulse animation-delay-200"></span>
@@ -486,10 +481,10 @@ const Features = () => {
           
           <div className="text-center">
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <Link to="/about" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center px-4 sm:px-6 bg-white text-brand-black rounded-lg border border-brand-red hover:bg-gray-50 hover:shadow-md transition-all group py-3 w-full sm:w-auto justify-center">
+              <Button onClick={scrollToProjects} className="inline-flex items-center px-4 sm:px-6 bg-white text-brand-black rounded-lg border border-brand-red hover:bg-gray-50 hover:shadow-md transition-all group py-3 w-full sm:w-auto justify-center">
                 {t.common.learnMore}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </Button>
               
               <Button onClick={scrollToContact} className="inline-flex items-center px-4 sm:px-6 py-3 bg-brand-red hover:bg-brand-bright-red text-white rounded-lg shadow-md hover:shadow-lg transition-all group w-full sm:w-auto justify-center">
                 {t.hero.contactUs}

@@ -9,6 +9,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import emailjs from 'emailjs-com';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import {useLanguage} from "@/contexts/LanguageContext.tsx";
+import {configCompany} from "@/data/configCompany.ts";
 
 // Updated schema with honeypot field validation
 const formSchema = z.object({
@@ -27,6 +31,8 @@ const EMAILJS_TEMPLATE_ID = "template_fgq53nh"; // Updated to the correct templa
 const EMAILJS_PUBLIC_KEY = "wQmcZvoOqTAhGnRZ3";
 
 const ContactForm = () => {
+  const { t } = useLanguage();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStartTime] = useState<number>(Date.now()); // Track when form was opened
   
@@ -119,6 +125,7 @@ const ContactForm = () => {
       
       // More detailed error logging
       if (error && typeof error === 'object' && 'text' in error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         console.error('Error details:', (error as any).text);
       }
       
@@ -131,6 +138,8 @@ const ContactForm = () => {
       setIsSubmitting(false);
     }
   };
+
+  const actionEmail = `https://formsubmit.co/${configCompany.formEmail}`;
 
   return <section id="contact" className="bg-gradient-to-b from-white to-black text-white relative py-[25px]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,74 +157,51 @@ const ContactForm = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-700 text-black">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField control={form.control} name="name" render={({
-                field
-              }) => <FormItem>
-                      <FormLabel className="text-gray-700">Name</FormLabel>
-                      <div className="relative">
-                        <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <FormControl>
-                          <Input placeholder="Your name" className="pl-10" {...field} />
-                        </FormControl>
-                      </div>
-                      <FormMessage />
-                    </FormItem>} />
-                
-                <FormField control={form.control} name="email" render={({
-                field
-              }) => <FormItem>
-                      <FormLabel className="text-gray-700">Email</FormLabel>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <FormControl>
-                          <Input type="email" placeholder="your.email@example.com" className="pl-10" {...field} />
-                        </FormControl>
-                      </div>
-                      <FormMessage />
-                    </FormItem>} />
-                
-                <FormField control={form.control} name="message" render={({
-                field
-              }) => <FormItem>
-                      <FormLabel className="text-gray-700">Message</FormLabel>
-                      <div className="relative">
-                        <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                        <FormControl>
-                          <Textarea placeholder="Tell us about your project or inquiry..." className="min-h-[120px] pl-10 resize-none" {...field} />
-                        </FormControl>
-                      </div>
-                      <FormMessage />
-                    </FormItem>} />
-                
-                {/* Honeypot field - hidden from real users but bots will fill it */}
-                <FormField control={form.control} name="honeypot" render={({
-                field
-              }) => <FormItem className="hidden">
-                      <FormLabel>Leave this empty</FormLabel>
-                      <FormControl>
-                        <Input {...field} tabIndex={-1} />
-                      </FormControl>
-                    </FormItem>} />
-                
-                {/* Hidden timestamp field */}
-                <FormField control={form.control} name="timestamp" render={({
-                field
-              }) => <FormItem className="hidden">
-                      <FormControl>
-                        <Input type="hidden" {...field} />
-                      </FormControl>
-                    </FormItem>} />
-                
-                <button type="submit" disabled={isSubmitting} className="w-full bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-md transition-colors flex items-center justify-center disabled:opacity-70">
-                  {isSubmitting ? "Sending..." : <>
-                      Send Message
-                      <Send className="ml-2 h-4 w-4" />
-                    </>}
-                </button>
-              </form>
-            </Form>
+            <form action={actionEmail} method="POST" className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                >
+                  <Input placeholder={t.contact.first_name} className="border-primary/20 focus:border-primary" />
+                </motion.div>
+                <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                >
+                  <Input placeholder={t.contact.last_name} className="border-primary/20 focus:border-primary" />
+                </motion.div>
+              </div>
+              <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+              >
+                <Input placeholder={t.contact.email} type="email" className="border-primary/20 focus:border-primary" />
+              </motion.div>
+              <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+              >
+                <Input placeholder={t.contact.phone} type="tel" className="border-primary/20 focus:border-primary" />
+              </motion.div>
+              <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+              >
+                <Textarea
+                    placeholder={t.contact.message}
+                    className="min-h-32 border-primary/20 focus:border-primary"
+                />
+              </motion.div>
+              <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+              >
+                <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary">
+                  {t.contact.send}
+                </Button>
+              </motion.div>
+            </form>
           </div>
           
           <div className="space-y-8">
@@ -223,9 +209,9 @@ const ContactForm = () => {
               <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white mb-4">
                 <Mail className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Email Us</h3>
-              <p className="text-gray-600 mb-2">For general inquiries:</p>
-              <a href="mailto:info@wrlds.com" className="text-blue-500 hover:underline">hello@wrlds.com</a>
+              <h3 className="text-xl font-semibold mb-2">{t.contact.email_us}</h3>
+              <p className="text-gray-600 mb-2">{t.contact.general_inquiries}</p>
+              <a href="mailto:info@wrlds.com" className="text-blue-500 hover:underline">{configCompany.formEmail}</a>
               <p className="text-gray-600 mt-2 mb-2">
             </p>
             </div>
