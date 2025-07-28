@@ -6,7 +6,8 @@ export const configCompany = {
     phone: '+380630327589',
     address: 'Україна, 69083, Запорізька обл., місто Запоріжжя, вулиця Вуглегірська, будинок 71',
     addressEng: 'Ukraine, 69083, Zaporizhzhia region, Zaporizhzhia city, Vuhlehirska street, house 71',
-    formEmail: 'example@gmail.com',
+
+    formEmail: 'cloudmatrix327@gmail.com',
 
     olx: 'https://www.olx.ua/uk/list/user/2hseJj',
     prom: 'https://prom.ua/c4122303-tov-smart-horizons.html',
