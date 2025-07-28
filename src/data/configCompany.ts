@@ -9,11 +9,11 @@ export const configCompany = {
 
     formEmail: 'cloudmatrix327@gmail.com',
 
-    olx: 'https://www.olx.ua/uk/list/user/2hseJj',
-    prom: 'https://prom.ua/c4122303-tov-smart-horizons.html',
-    facebook: 'https://www.facebook.com/profile.php?id=61578364689074',
-    instagram: 'https://www.instagram.com/silver.development/',
-    linkedin: 'https://www.linkedin.com/in/max-capran-b0a5a3376/',
+    olx: 'https://www.olx.ua/uk/list/user/2hsnXa',
+    prom: 'https://prom.ua/ua/c4123866-fizichna-osoba-pidpriyemets.html',
+    facebook: 'https://www.facebook.com/profile.php?id=61578920936875',
+    instagram: 'https://www.instagram.com/cloudmatrix327/',
+    linkedin: 'https://www.linkedin.com',
 
-    whatsapp: 'https://www.whatsapp.com/silverDevelopment', // ???
+    whatsapp: 'https://www.whatsapp.com', // ???
 };
